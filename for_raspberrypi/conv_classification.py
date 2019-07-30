@@ -62,4 +62,5 @@ if __name__ == '__main__':
     parser.add_argument('model_path', type=str)
     args = parser.parse_args()
 
+    model_path = args.model_path
     main(model_path)
