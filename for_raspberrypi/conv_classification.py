@@ -17,10 +17,9 @@ def get_labels_from_csv(file_path):
     print("The labels are: ", labels)
     return labels
 
-def main():
-    label_file_path = '../labeling_camera/label.csv'
+def main(model_path):
+    label_file_path = '../label/for_lt_20190731/label.csv'
     labels = get_labels_from_csv(label_file_path)
-    model_path = "../../tflite/conv_model_1564206099_edgetpu.tflite"
     engine = edgetpu.classification.engine.ClassificationEngine(model_path)
     with picamera.PiCamera() as camera:
         camera.resolution = (225, 225)
@@ -58,4 +57,9 @@ def main():
             camera.stop_preview()
 
 if __name__ == '__main__':
-    main()
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('model_path', type=str)
+    args = parser.parse_args()
+
+    main(model_path)
